@@ -1,0 +1,17 @@
+.doc-tile {
+  background: var(--paper-solid); border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--line);
+  transition: transform .2s, box-shadow .2s;
+}
+.doc-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.doc-photo {
+  aspect-ratio: 1; background-size: cover; background-position: center;
+  background-color: var(--bone-light);
+}
+.doc-body { padding: 1.25rem; }
+.doc-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+.doc-body .spec { display: inline-block; margin: .35rem 0; font-size: .8rem; font-weight: 700; color: var(--emerald-dark); }
+.doc-body .meta { font-size: .8rem; color: var(--ink-soft); }
+.doc-body .fee { font-size: .85rem; font-weight: 800; color: var(--ink); margin-top: .5rem; }
+.schedule-box { margin-top: .75rem; font-size: .8rem; }
+.schedule-box .day { font-weight: 700; }
