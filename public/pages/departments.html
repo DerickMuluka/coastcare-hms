@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Departments — CoastCare</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body class="app-body">
+<header class="navbar" id="navbar">
+  <a href="/pages/dashboard.html" class="brand"><span class="brand-mark">C</span><span class="brand-text">CoastCare<span class="dot">.</span></span></a>
+  <nav class="nav-links">
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/users.html" data-role="admin">Users</a>
+    <a href="/pages/activity.html" data-role="admin">Activity</a>
+    <a href="/pages/departments.html" class="active">Departments</a>
+  </nav>
+  <div class="nav-actions"><span class="user-chip" id="userChip">…</span><button class="btn btn-ghost btn-sm" onclick="HMS.logout()">Logout</button></div>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</header>
+
+<main class="app-main">
+  <div class="page-header">
+    <div><h1>Departments</h1><p class="page-sub">Hospital units directory.</p></div>
+    <button class="btn btn-primary" id="addDept" hidden>+ New Department</button>
+  </div>
+
+  <div class="panel" id="deptForm" hidden>
+    <div class="grid grid-3">
+      <div class="field"><label>Name</label><input id="dName" /></div>
+      <div class="field"><label>Location</label><input id="dLoc" /></div>
+      <div class="field" style="display:flex;align-items:flex-end"><button class="btn btn-primary" id="saveDept">Save</button></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="dDesc" rows="2"></textarea></div>
+  </div>
+
+  <div class="panel">
+    <div style="overflow-x:auto">
+      <table class="table" id="deptTable">
+        <thead><tr><th>Name</th><th>Description</th><th>Location</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="/js/common.js"></script>
+<script src="/js/departments.js"></script>
+</body>
+</html>
