@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const c = require('../controllers/patientController');
+const { requireAuth, requireRole } = require('../middleware/authMiddleware');
+router.get('/me', requireAuth, c.me);
+router.get('/', requireAuth, requireRole('admin','doctor','receptionist','lab'), c.list);
+router.get('/:id', requireAuth, c.get);
+router.post('/', requireAuth, requireRole('admin','receptionist'), c.create);
+router.put('/:id', requireAuth, requireRole('admin','receptionist'), c.updatePatient);
+router.delete('/:id', requireAuth, requireRole('admin'), c.remove);
+module.exports = router;
