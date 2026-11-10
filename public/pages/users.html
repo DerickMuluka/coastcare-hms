@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Users — CoastCare Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<link rel="stylesheet" href="/css/dashboard.css" />
+<link rel="stylesheet" href="/css/users.css" />
+</head>
+<body class="app-body">
+<header class="navbar" id="navbar">
+  <a href="/pages/dashboard.html" class="brand"><span class="brand-mark">C</span><span class="brand-text">CoastCare<span class="dot">.</span></span></a>
+  <nav class="nav-links">
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/users.html" class="active">Users</a>
+    <a href="/pages/activity.html">Activity</a>
+    <a href="/pages/departments.html">Departments</a>
+  </nav>
+  <div class="nav-actions">
+    <span class="user-chip" id="userChip">…</span>
+    <button class="btn btn-ghost btn-sm" onclick="HMS.logout()">Logout</button>
+  </div>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</header>
+
+<main class="app-main">
+  <div class="page-header">
+    <div><h1>User Management</h1><p class="page-sub">Approve registrations, create accounts, reset passwords and remove users.</p></div>
+    <button class="btn btn-primary" id="addUserBtn">+ New User</button>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="all">All Users</button>
+    <button class="tab-btn" data-tab="pending">Pending Approvals <span id="tabPendingCount" class="tab-count" style="display:none">0</span></button>
+  </div>
+
+  <div class="filters">
+    <select id="roleFilter" style="max-width:200px">
+      <option value="">All roles</option>
+      <option value="admin">Admin</option>
+      <option value="doctor">Doctor</option>
+      <option value="patient">Patient</option>
+      <option value="receptionist">Receptionist</option>
+      <option value="lab">Lab</option>
+      <option value="pharmacist">Pharmacist</option>
+    </select>
+    <input type="search" id="userSearch" placeholder="Search by name, email, ID…" style="max-width:320px" />
+  </div>
+
+  <div class="panel">
+    <div style="overflow-x:auto">
+      <table class="table" id="usersTable">
+        <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CREATE / EDIT USER MODAL -->
+  <div id="userModal" class="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modalTitle">New User</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <form id="userForm">
+        <div class="grid-2">
+          <div class="field"><label>Full Name *</label><input id="ufName" required /></div>
+          <div class="field"><label>Email *</label><input type="email" id="ufEmail" required /></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Phone</label><input id="ufPhone" /></div>
+          <div class="field"><label>Role *</label>
+            <select id="ufRole" required>
+              <option value="">Select role</option>
+              <option value="admin">Admin</option>
+              <option value="doctor">Doctor</option>
+              <option value="patient">Patient</option>
+              <option value="receptionist">Receptionist</option>
+              <option value="lab">Lab</option>
+              <option value="pharmacist">Pharmacist</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Date of Birth</label><input type="date" id="ufDob" /></div>
+          <div class="field"><label>Gender</label>
+            <select id="ufGender"><option value="">Select</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>
+          </div>
+        </div>
+        <div class="field"><label>Address</label><input id="ufAddress" /></div>
+
+        <div class="field" id="passwordField">
+          <label>Set Password * <span style="font-weight:400;color:var(--ink-soft)">(user can change it after login)</span></label>
+          <div class="password-wrap">
+            <input type="password" id="ufPassword" placeholder="Min 8 chars" minlength="8" />
+            <button type="button" class="password-toggle" data-target="ufPassword">
+              <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/></svg>
+            </button>
+          </div>
+          <div class="field-hint">Share this password with the user. They should change it on first login.</div>
+        </div>
+
+        <div id="doctorFields" style="display:none">
+          <h3 style="font-size:1rem;margin:1rem 0 .75rem;font-family:var(--font-display);">Doctor Details</h3>
+          <div class="grid-2">
+            <div class="field"><label>Department</label><select id="ufDept"></select></div>
+            <div class="field"><label>Specialization</label><input id="ufSpec" /></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>Qualification</label><input id="ufQual" /></div>
+            <div class="field"><label>License No.</label><input id="ufLic" /></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>Years Experience</label><input type="number" id="ufExp" min="0" /></div>
+            <div class="field"><label>Consultation Fee (KES)</label><input type="number" id="ufFee" min="0" /></div>
+          </div>
+          <div class="field"><label>Bio</label><textarea id="ufBio" rows="2"></textarea></div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="modalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="userSaveBtn">Save User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- RESET PASSWORD MODAL -->
+  <div id="resetModal" class="modal" hidden>
+    <div class="modal-card" style="max-width:420px">
+      <div class="modal-head"><h2>Reset Password</h2><button class="modal-close" id="resetClose">✕</button></div>
+      <form id="resetForm">
+        <div class="field">
+          <label>New Password</label>
+          <div class="password-wrap">
+            <input type="password" id="resetPassword" required minlength="8" />
+            <button type="button" class="password-toggle" data-target="resetPassword">
+              <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="resetCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<script src="/js/common.js"></script>
+<script src="/js/users.js"></script>
+</body>
+</html>

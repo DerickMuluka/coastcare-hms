@@ -1,0 +1,46 @@
+.filters { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+.tab-bar {
+  display: flex; gap: .25rem; margin-bottom: 1rem;
+  background: var(--bone-light); padding: .25rem; border-radius: 999px;
+  width: fit-content; border: 1px solid var(--line);
+}
+.tab-btn {
+  padding: .55rem 1.25rem; border-radius: 999px;
+  font-weight: 700; font-size: .85rem; color: var(--ink-soft);
+  transition: background .15s, color .15s; position: relative;
+}
+.tab-btn.active { background: var(--paper-solid); color: var(--ink); box-shadow: var(--shadow-sm); }
+.tab-btn:hover:not(.active) { color: var(--ink); }
+.tab-count {
+  display: inline-block; background: var(--coral-dark); color: #fff;
+  border-radius: 999px; padding: 0 .5rem;
+  font-size: .68rem; font-weight: 800; margin-left: .4rem;
+  min-width: 18px; text-align: center;
+}
+
+.modal {
+  position: fixed; inset: 0; background: rgba(10,20,24,.6);
+  backdrop-filter: blur(6px);
+  display: grid; place-items: center; z-index: 2000; padding: 1rem;
+  overflow-y: auto;
+  animation: fadeIn .2s ease;
+}
+.modal[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-card {
+  background: var(--paper-solid); border-radius: var(--radius-lg);
+  padding: 2rem; max-width: 720px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp .3s ease;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.modal-head h2 { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; letter-spacing: -.02em; }
+.modal-close {
+  width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center;
+  background: rgba(10,20,24,.07); font-weight: 800;
+}
+.modal-close:hover { background: rgba(10,20,24,.14); }
+.modal-actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
