@@ -1,0 +1,11 @@
+.slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: .5rem; }
+.slot-btn {
+  padding: .6rem; border-radius: 10px;
+  background: rgba(0,184,132,0.10); color: var(--emerald-dark);
+  font-weight: 700; font-size: .85rem; border: 1.5px solid transparent;
+  transition: all .15s; cursor: pointer;
+}
+.slot-btn:hover { background: rgba(0,184,132,0.22); }
+.slot-btn.selected { background: var(--emerald-dark); color: #fff; }
+.row-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+@media (max-width: 640px) { .slot-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); } }
