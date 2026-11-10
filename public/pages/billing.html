@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Billing — CoastCare</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body class="app-body">
+<header class="navbar" id="navbar">
+  <a href="/pages/dashboard.html" class="brand"><span class="brand-mark">C</span><span class="brand-text">CoastCare<span class="dot">.</span></span></a>
+  <nav class="nav-links">
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/appointments.html">Appointments</a>
+    <a href="/pages/prescriptions.html">Records</a>
+    <a href="/pages/lab.html">Lab</a>
+    <a href="/pages/billing.html" class="active">Billing</a>
+  </nav>
+  <div class="nav-actions"><span class="user-chip" id="userChip">…</span><button class="btn btn-ghost btn-sm" onclick="HMS.logout()">Logout</button></div>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</header>
+
+<main class="app-main">
+  <div class="page-header">
+    <div><h1>Billing & Invoices</h1><p class="page-sub">Invoices, payments and balances.</p></div>
+    <button class="btn btn-primary" id="newInvoiceBtn" hidden>+ New Invoice</button>
+  </div>
+
+  <div class="panel" id="invoiceCreator" hidden>
+    <h2>Create Invoice</h2>
+    <div class="grid grid-3">
+      <div class="field"><label>Patient</label><select id="invPatient"></select></div>
+      <div class="field"><label>Method</label>
+        <select id="invMethod"><option>Cash</option><option>M-Pesa</option><option>Card</option><option>Insurance</option></select>
+      </div>
+      <div class="field" style="display:flex;align-items:flex-end"><button class="btn btn-primary" id="createInvoice">Create</button></div>
+    </div>
+    <h3 style="font-size:.95rem;margin:1rem 0 .5rem">Line Items</h3>
+    <div id="invItems"></div>
+    <button class="btn btn-ghost btn-sm" id="addItem" type="button">+ Add Item</button>
+  </div>
+
+  <div class="panel">
+    <div style="overflow-x:auto">
+      <table class="table" id="invoicesTable">
+        <thead><tr><th>Invoice</th><th>Patient</th><th>Total</th><th>Paid</th><th>Status</th><th>Method</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="/js/common.js"></script>
+<script src="/js/billing.js"></script>
+</body>
+</html>
