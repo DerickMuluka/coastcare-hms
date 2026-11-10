@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Records — CoastCare</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body class="app-body">
+<header class="navbar" id="navbar">
+  <a href="/pages/dashboard.html" class="brand"><span class="brand-mark">C</span><span class="brand-text">CoastCare<span class="dot">.</span></span></a>
+  <nav class="nav-links">
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/appointments.html">Appointments</a>
+    <a href="/pages/doctors.html">Doctors</a>
+    <a href="/pages/prescriptions.html" class="active">Records</a>
+    <a href="/pages/lab.html">Lab</a>
+    <a href="/pages/billing.html">Billing</a>
+  </nav>
+  <div class="nav-actions"><span class="user-chip" id="userChip">…</span><button class="btn btn-ghost btn-sm" onclick="HMS.logout()">Logout</button></div>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</header>
+
+<main class="app-main">
+  <div class="page-header"><div><h1>Medical Records & Prescriptions</h1><p class="page-sub">Diagnoses and issued medications.</p></div></div>
+
+  <div class="panel" id="doctorPanel" hidden>
+    <h2>Add Medical Record</h2>
+    <div class="grid grid-3">
+      <div class="field"><label>Patient</label><select id="pPatient"></select></div>
+      <div class="field"><label>Diagnosis</label><input id="pDiag" /></div>
+      <div class="field"><label>Symptoms</label><input id="pSymp" /></div>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="pNotes" rows="2"></textarea></div>
+    <h3 style="font-size:.95rem;margin:1rem 0 .5rem">Prescriptions</h3>
+    <div id="prescRows"></div>
+    <button class="btn btn-ghost btn-sm" id="addPresc" type="button">+ Add Medication</button>
+    <div style="margin-top:1rem"><button class="btn btn-primary" id="saveRecord">Save Record</button></div>
+  </div>
+
+  <div class="panel">
+    <h2>Prescriptions</h2>
+    <div style="overflow-x:auto">
+      <table class="table" id="prescTable">
+        <thead><tr><th>Date</th><th>Diagnosis</th><th>Medication</th><th>Dosage</th><th>Frequency</th><th>Days</th><th>Doctor</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="/js/common.js"></script>
+<script src="/js/prescriptions.js"></script>
+</body>
+</html>
