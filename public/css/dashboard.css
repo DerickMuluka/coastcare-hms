@@ -1,0 +1,76 @@
+.app-body { background: var(--bone); min-height: 100vh; padding-top: 78px; }
+.app-main { max-width: 1320px; margin: 0 auto; padding: 2rem; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem; }
+.page-header h1 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.9rem; letter-spacing: -.03em;
+}
+.page-sub { color: var(--ink-soft); font-size: .9rem; }
+.user-chip {
+  padding: .45rem .9rem; background: rgba(0,184,132,0.15);
+  border-radius: 999px; font-size: .8rem; font-weight: 700; color: var(--emerald-dark);
+}
+.nav-links a.active { color: var(--emerald-dark); font-weight: 700; }
+
+.stats-grid { margin-bottom: 2rem; }
+.stat-card {
+  background: var(--paper-solid); border-radius: var(--radius);
+  padding: 1.4rem; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+  position: relative; overflow: hidden;
+  animation: fadeUp .4s ease backwards;
+}
+.stat-card::before {
+  content: ''; position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: linear-gradient(180deg, var(--emerald), var(--blue));
+}
+.stat-card .label { font-size: .76rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+.stat-card .value { font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; letter-spacing: -.025em; color: var(--ink); margin-top: .3rem; }
+.stat-card .hint { font-size: .76rem; color: var(--ink-soft); }
+
+.panel {
+  background: var(--paper-solid); border-radius: var(--radius); padding: 1.5rem;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--line); margin-bottom: 1.5rem;
+}
+.panel h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: -.01em; }
+.content-area { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; }
+.content-area .full { grid-column: 1 / -1; }
+
+.table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+.table th { text-align: left; padding: .7rem .5rem; font-weight: 700; color: var(--ink-soft); font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--line); }
+.table td { padding: .8rem .5rem; border-bottom: 1px solid var(--line); }
+.table tr:last-child td { border-bottom: none; }
+
+.badge {
+  display: inline-block; padding: .2rem .7rem; border-radius: 999px;
+  font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+}
+.badge.pending { background: rgba(255,184,0,0.22); color: #92600a; }
+.badge.confirmed { background: rgba(0,184,132,0.18); color: var(--emerald-dark); }
+.badge.completed { background: rgba(52,211,153,0.22); color: #047857; }
+.badge.cancelled { background: rgba(255,92,77,0.22); color: #b91c1c; }
+.badge.unpaid { background: rgba(255,92,77,0.22); color: #b91c1c; }
+.badge.paid { background: rgba(52,211,153,0.22); color: #047857; }
+.badge.partial { background: rgba(255,184,0,0.22); color: #92600a; }
+.badge.active { background: rgba(0,184,132,0.18); color: var(--emerald-dark); }
+.badge.inactive { background: rgba(10,20,24,0.10); color: var(--ink-soft); }
+
+.empty { text-align: center; padding: 2rem; color: var(--ink-soft); font-size: .9rem; }
+
+.actions-cell button {
+  padding: .3rem .7rem; font-size: .74rem; border-radius: 999px;
+  background: rgba(10,20,24,0.07); color: var(--ink); margin-right: .3rem;
+  font-weight: 700; cursor: pointer;
+}
+.actions-cell button.confirm { background: rgba(0,184,132,0.18); color: var(--emerald-dark); }
+.actions-cell button.cancel { background: rgba(255,92,77,0.18); color: #b91c1c; }
+.actions-cell button.complete { background: rgba(52,211,153,0.18); color: #047857; }
+.actions-cell button.danger { background: rgba(220,38,38,0.14); color: #b91c1c; }
+.actions-cell button:hover { opacity: .82; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 900px) {
+  .content-area { grid-template-columns: 1fr; }
+  .app-main { padding: 1.25rem; }
+}
